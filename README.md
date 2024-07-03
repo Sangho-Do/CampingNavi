@@ -29,8 +29,10 @@ MBC 아카데미 빅데이터 활용 실무 프로젝트 기반 JAVA 풀스택 �
 <strong>프로젝트 기획 문서</strong>
 
 ### 요구사항 정의서 살펴보기
-[CampingNavi 기획 문서.pdf](https://github.com/user-attachments/files/16047752/CampingNavi.pdf)
+[CampingNavi (요구사항 정의서).pdf](https://github.com/user-attachments/files/16085764/CampingNavi.pdf)
+
+
 
 
 ### 프로젝트 포트폴리오 살펴보기
-[CampNavi.pdf](https://github.com/user-attachments/files/16047740/CampNavi.pdf)
+[CampNavi (포트폴리오).pdf](https://github.com/user-attachments/files/16085769/CampNavi.pdf)
