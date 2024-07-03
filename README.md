@@ -13,7 +13,7 @@ MBC 아카데미 빅데이터 활용 실무 프로젝트 기반 JAVA 풀스택 �
 
 <h3>메인화면</h3>
 
-![로그인 화면](https://github.com/checkIn97/CampingNavi/assets/158795073/56aa1a40-1128-479c-bcf7-ea67f8d9cd24)
+![로그인 화면](https://github.com/Sangho-Do/CampingNavi/blob/main/intro_preview.jpg)
 
 
 <hr>
