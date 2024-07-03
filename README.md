@@ -20,7 +20,7 @@ MBC 아카데미 빅데이터 활용 실무 프로젝트 기반 JAVA 풀스택 �
 
 <h3>추천화면</h3>
 
-![추천]
+![추천](https://github.com/Sangho-Do/CampingNavi/blob/main/recommend_preview.jpg)
 
 <hr>
 <h4>저희 Team Navigation은 사용자 편의를 위한 인터페이스와 맞춤 추천 시스템을 제공합니다.</h4>
