@@ -39,8 +39,8 @@ public class ChatRoomController {
     @GetMapping("/room")
     public String rooms(Model model,
                         HttpSession session,
-                        @RequestParam(defaultValue = "") String campName,
-                        @RequestParam(defaultValue = "") List<String> purpose) {
+                        @RequestParam(value = "campName", defaultValue = "") String campName,
+                        @RequestParam(value = "purpose", defaultValue = "") List<String> purpose) {
         // 인증 객체 생성
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = "";
@@ -73,8 +73,8 @@ public class ChatRoomController {
     // 모든 채팅방 목록 반환
     @GetMapping("/rooms")
     @ResponseBody
-    public List<ChatRoomVo> room(@RequestParam(defaultValue = "") String campName,
-                                 @RequestParam(defaultValue = "") String[] purpose,
+    public List<ChatRoomVo> room(@RequestParam(value = "campName", defaultValue = "") String campName,
+                                 @RequestParam(value = "purpose", defaultValue = "") String[] purpose,
                                HttpSession session) {
         System.out.println(campName + "캠핑장 으로 찾기실행");
         System.out.println(purpose + "캠프목적 으로 찾기 실행");
@@ -113,12 +113,12 @@ public class ChatRoomController {
     // 채팅방 생성
     @PostMapping("/room")
     @ResponseBody
-    public ChatRoom createRoom(@RequestParam String name,
-                               @RequestParam String startDate,
-                               @RequestParam String endDate,
-                               @RequestParam int maxMem,
-                               @RequestParam String[] purpose,
-                               @RequestParam String campName,
+    public ChatRoom createRoom(@RequestParam("name") String name,
+                               @RequestParam("startDate") String startDate,
+                               @RequestParam("endDate") String endDate,
+                               @RequestParam("maxMem") int maxMem,
+                               @RequestParam("purpose") String[] purpose,
+                               @RequestParam("campName") String campName,
                                HttpSession session) {
         Member member = (Member) session.getAttribute("loginUser");
         Camp camp = campRepository.findByName(campName);
@@ -141,7 +141,7 @@ public class ChatRoomController {
 
     // 채팅방 입장 화면
     @GetMapping("/room/enter/{roomId}")
-    public String roomDetail(Model model, @PathVariable String roomId, HttpSession session) {
+    public String roomDetail(Model model, @PathVariable("roomId") String roomId, HttpSession session) {
         model.addAttribute("roomId", roomId);
         Member member = (Member) session.getAttribute("loginUser");
         List<String> userList = chatRoomService.getUserList(roomId);
@@ -154,8 +154,8 @@ public class ChatRoomController {
     }
     @GetMapping("/banCheck")
     @ResponseBody
-    public String banCheck(@RequestParam String roomId,
-                           @RequestParam int mseq) {
+    public String banCheck(@RequestParam("roomdId") String roomId,
+                           @RequestParam("mseq") int mseq) {
         List<String> banList = chatRoomService.getBanUserList(roomId);
         if (banList.contains(String.valueOf(mseq))) {
             return "{\"banned\":true}";
@@ -168,7 +168,7 @@ public class ChatRoomController {
     // 특정 채팅방 조회
     @GetMapping("/room/{roomId}")
     @ResponseBody
-    public ChatRoom roomInfo(@PathVariable String roomId) {
+    public ChatRoom roomInfo(@PathVariable("roomId") String roomId) {
         System.out.println("특정채팅방 조회 메서드 : " + chatRoomService.findRoomById(roomId));
         return chatRoomService.findRoomById(roomId);
     }
@@ -176,7 +176,7 @@ public class ChatRoomController {
     // 특정 채팅방의 모든 메시지 조회
     @GetMapping("/room/{roomId}/messages")
     @ResponseBody
-    public List<ChatMessage> roomMessages(@PathVariable String roomId) {
+    public List<ChatMessage> roomMessages(@PathVariable("roomId") String roomId) {
         return mongoChatMessageRepository.findByRoomId(roomId);
     }
 
@@ -202,7 +202,7 @@ public class ChatRoomController {
 
     @GetMapping("/userList/{roomId}")
     @ResponseBody
-    public List<Member> userList(@PathVariable String roomId){
+    public List<Member> userList(@PathVariable("roomId") String roomId){
 
         System.out.println("룸아이디로 유저리스트 찾기 " + roomId);
         System.out.println("이 방의 참여자는" + chatRoomService.findRoomById(roomId));
@@ -221,7 +221,7 @@ public class ChatRoomController {
     @GetMapping("/myList/{memberMseq}")
     @ResponseBody
     public List<ChatRoom> findmyList(HttpSession session,
-                                     @PathVariable String memberMseq){
+                                     @PathVariable("memberMseq") String memberMseq){
         Member member = (Member) session.getAttribute("loginUser");
         List<ChatRoom> myChatRooms = chatRoomService.findMyChatRooms(String.valueOf(member.getMseq()));
         return myChatRooms;
@@ -229,15 +229,15 @@ public class ChatRoomController {
     }
     @GetMapping("/chatSearch")
     @ResponseBody
-    public List<Camp> searchItems(@RequestParam String keyword) {
+    public List<Camp> searchItems(@RequestParam(value="keyword", defaultValue="") String keyword) {
         return campService.searchItems(keyword);
 
     }
 
     @GetMapping("/banUser")
     @ResponseBody
-    public String banUser(@RequestParam String roomId,
-                        @RequestParam int mseq){
+    public String banUser(@RequestParam("roomId") String roomId,
+                        @RequestParam("mseq") int mseq){
         System.out.println("삭제할방" + roomId);
         System.out.println("삭제할 회원" + mseq);
         chatRoomService.delUser(roomId, mseq);
@@ -246,14 +246,14 @@ public class ChatRoomController {
     }
     @GetMapping("/deleteRoom")
     @ResponseBody
-    public String dleteRoom(@RequestParam String roomId) {
+    public String dleteRoom(@RequestParam("roomId") String roomId) {
         chatRoomRepository.deleteById(roomId);
         return "admin/chat/adminChatList";
     }
     @GetMapping("/roomBanUser")
     @ResponseBody
-    public void roomBanUser(@RequestParam String roomId,
-                          @RequestParam int mseq) {
+    public void roomBanUser(@RequestParam("roomId") String roomId,
+                          @RequestParam("mseq") int mseq) {
         System.out.println("삭제할방" + roomId);
         System.out.println("삭제할 회원" + mseq);
         chatRoomService.delUser(roomId, mseq);

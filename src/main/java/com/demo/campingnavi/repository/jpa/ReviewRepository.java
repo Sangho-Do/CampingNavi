@@ -22,7 +22,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     @Query("SELECT r FROM Review r "
             + "WHERE r.title LIKE %:title% "
             + "or r.content LIKE %:content% OR r.content IS NULL ")
-    List<Review> findReviewList(String title, String content);
+    List<Review> findReviewList(@Param("title") String title, @Param("content") String content);
 
     List<Review> findByTitleContaining(String title);
 

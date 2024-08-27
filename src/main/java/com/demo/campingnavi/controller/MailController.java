@@ -27,8 +27,9 @@ public class MailController {
 
     // 인증 이메일 전송
     @PostMapping("/mailSend")
-    public HashMap<String, Object> mailSend(String mail, HttpSession session) {
-        HashMap<String, Object> map = new HashMap<>();
+    public HashMap<String, Object> mailSend(@RequestParam(value="mail") String mail, HttpSession session) {
+        System.out.println(mail);
+    	HashMap<String, Object> map = new HashMap<>();
         if (!memberService.isEmail(mail)) {
             try {
                 number = mailService.sendMail(mail);
@@ -75,7 +76,7 @@ public class MailController {
 
     // 인증번호 일치여부 확인
     @GetMapping("/mailCheck")
-    public ResponseEntity<?> mailCheck(@RequestParam String userNumber, HttpSession session) {
+    public ResponseEntity<?> mailCheck(@RequestParam("userNumber") String userNumber, HttpSession session) {
         String strNumber = (String) session.getAttribute("number");
         number = Integer.parseInt(strNumber);
         boolean isMatch = userNumber.equals(String.valueOf(number));

@@ -75,7 +75,7 @@ public class DataServiceImpl implements DataService {
                             camp.setAddr2(input[4]);
                             camp.setMapY(input[5]);
                             camp.setMapX(input[6]);
-                            camp.setCampType(input[7]);
+                            camp.setCampType(input[7].isEmpty() ? "generalCamping" : input[7]);
                             camp.setLocationB(input[8]);
                             camp.setLocationS(input[9]);
                             camp.setUseyn("y");

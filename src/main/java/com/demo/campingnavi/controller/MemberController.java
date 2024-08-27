@@ -137,7 +137,7 @@ public class MemberController {
     }
 
     @GetMapping("/mypage/oauth")
-    public String oauthMypageP(Model model, @RequestParam(defaultValue = "0") int page) {
+    public String oauthMypageP(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         // 인증 객체 생성
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = "";
@@ -275,7 +275,7 @@ public class MemberController {
     }
 
     @GetMapping("/search/{type}")
-    public String searchView(@PathVariable String type) {
+    public String searchView(@PathVariable("type") String type) {
         if (type.equals("username")) {
             return "member/searchUsername";
         } else if (type.equals("password")){
